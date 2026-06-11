@@ -6,6 +6,9 @@ on:
       - "v*"
   workflow_dispatch:
 
+env:
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   build:
     name: Build aarch64 package
@@ -28,7 +31,7 @@ jobs:
             python:3.11-slim \
             bash -c "
               pip install --upgrade pip &&
-              pip install pyinstaller uc-integration-api aiohttp &&
+              pip install pyinstaller aiohttp https://github.com/unfoldedcircle/integration-python-library/archive/refs/heads/main.tar.gz &&
               pyinstaller \
                 --onedir \
                 --name driver \
