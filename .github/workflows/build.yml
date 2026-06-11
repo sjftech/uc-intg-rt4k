@@ -30,9 +30,9 @@ jobs:
             -w /build \
             python:3.11-slim \
             bash -c "
-              apt-get update -qq && apt-get install -y -qq git binutils &&
+              apt-get update -qq && apt-get install -y -qq binutils &&
               pip install --upgrade pip &&
-              pip install pyinstaller aiohttp git+https://github.com/unfoldedcircle/integration-python-library.git &&
+              pip install pyinstaller ucapi aiohttp &&
               pyinstaller \
                 --onedir \
                 --name driver \

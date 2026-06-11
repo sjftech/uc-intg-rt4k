@@ -251,7 +251,7 @@ def _create_entity(entity_id: str, name: str) -> ucapi.remote.Remote:
     return ucapi.remote.Remote(
         entity_id,
         {"en": name},
-        features=[RemoteFeatures.ON_OFF, RemoteFeatures.SEND_COMMAND],
+        features=[RemoteFeatures.ON_OFF, RemoteFeatures.SEND_CMD],
         attributes={RemoteAttr.STATE: _power_states.get(entity_id, RemoteStates.OFF)},
         simple_commands=SIMPLE_COMMANDS,
         cmd_handler=_cmd_handler,
