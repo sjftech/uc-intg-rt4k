@@ -1,0 +1,34 @@
+sleep_timer:
+  alias: Sleep Timer
+  fields:
+    duration:
+      description: Duration in minutes
+  sequence:
+    - service: input_boolean.turn_on
+      target:
+        entity_id: input_boolean.sleep_timer_active
+    - service: input_datetime.set_datetime
+      target:
+        entity_id: input_datetime.sleep_timer_end
+      data:
+        timestamp: "{{ (now().timestamp() + (duration * 60)) | int }}"
+  mode: restart
+
+start_sleep_timer_120:
+  alias: Start Sleep Timer
+  sequence:
+    - service: script.sleep_timer
+      data:
+        duration: 120
+  mode: restart
+
+cancel_sleep_timer:
+  alias: Cancel Sleep Timer
+  sequence:
+    - service: script.turn_off
+      target:
+        entity_id: script.sleep_timer
+    - service: input_boolean.turn_off
+      target:
+        entity_id: input_boolean.sleep_timer_active
+  mode: restart

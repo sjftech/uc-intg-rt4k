@@ -1,0 +1,48 @@
+{
+  "driver_id": "uc_intg_rt4k",
+  "version": "1.0.0",
+  "min_core_api": "0.20.0",
+  "name": {
+    "en": "RetroTINK-4K"
+  },
+  "description": {
+    "en": "Control RetroTINK-4K Pro and CE scalers via Home Assistant"
+  },
+  "icon": "custom:retrotink",
+  "enabled": true,
+  "setup_data_schema": {
+    "title": {
+      "en": "RetroTINK-4K Setup"
+    },
+    "settings": [
+      {
+        "id": "ha_url",
+        "label": { "en": "Home Assistant URL" },
+        "field": {
+          "text": { "value": "http://192.168.3.2:8123" }
+        }
+      },
+      {
+        "id": "ha_token",
+        "label": { "en": "Long-lived Access Token" },
+        "field": {
+          "text": { "value": "" }
+        }
+      },
+      {
+        "id": "rt4k_pro_path",
+        "label": { "en": "RT4K Pro Serial Device Path" },
+        "field": {
+          "text": { "value": "" }
+        }
+      },
+      {
+        "id": "rt4k_ce_path",
+        "label": { "en": "RT4K CE Serial Device Path" },
+        "field": {
+          "text": { "value": "" }
+        }
+      }
+    ]
+  }
+}

@@ -1,0 +1,34 @@
+- alias: "Sleep Timer - Manager"
+  id: sleep_timer_manager
+  description: "Handles timer expiration and manual cancellation"
+  trigger:
+    - platform: time
+      at: input_datetime.sleep_timer_end
+      id: "expired"
+    - platform: state
+      entity_id: select.remote_3_default
+      to: "Power Off"
+      id: "manual_off"
+  condition:
+    - condition: state
+      entity_id: input_boolean.sleep_timer_active
+      state: "on"
+  action:
+    - choose:
+        - conditions:
+            - condition: trigger
+              id: "expired"
+          sequence:
+            - service: remote.turn_off
+              target:
+                entity_id: remote.remote_3_remote
+            - service: input_boolean.turn_off
+              target:
+                entity_id: input_boolean.sleep_timer_active
+        - conditions:
+            - condition: trigger
+              id: "manual_off"
+          sequence:
+            - service: input_boolean.turn_off
+              target:
+                entity_id: input_boolean.sleep_timer_active
