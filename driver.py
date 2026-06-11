@@ -215,7 +215,15 @@ async def _cmd_handler(
     """Handle all remote commands from the UCR3."""
     entity_id = entity.id
 
-    # UCR3 activity power sequences send lowercase "on"/"off".
+    # 1. Unpack the "send_cmd" wrapper to get the actual button press
+    if cmd_id == "send_cmd":
+        if params and "command" in params:
+            cmd_id = params["command"]
+        else:
+            _LOGGER.warning("Received 'send_cmd' but no command in params for %s", entity_id)
+            return ucapi.StatusCodes.BAD_REQUEST
+
+    # 2. UCR3 activity power sequences send lowercase "on"/"off".
     # Manual presses from the command list send "POWER_ON"/"POWER_OFF".
     # Normalise both to our COMMAND_MAP keys.
     if cmd_id == "on":
